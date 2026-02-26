@@ -4,20 +4,33 @@ function abrirDetalhes(lead) {
   leadAtual = lead;
   const estimativa = calcularEstimativa(lead);
 
-  let estimativaTexto = "";
+let estimativaTexto = "";
 
-  if (estimativa.projeto) {
-    estimativaTexto =
-      `R$ ${estimativa.projeto.toLocaleString()}`;
-  }
-
-  if (estimativa.setup && estimativa.mensal) {
-    estimativaTexto = `
-      Setup: R$ ${estimativa.setup.toLocaleString()}<br>
-      Mensal: R$ ${estimativa.mensal.toLocaleString()}
-    `;
-  }
-
+if (estimativa.tipoPagamento === "projeto") {
+  estimativaTexto = `
+    R$ ${estimativa.projeto.toLocaleString()}
+    <br>
+    <small>${estimativa.horasEstimadas}h • ${estimativa.mesesEstimados} mês(es)</small>
+  `;
+} else {
+  estimativaTexto = `
+    Durante 12 meses:
+    <br>
+    Setup: R$ ${estimativa.setup.toLocaleString()}/mês
+    <br>
+    + Mensal: R$ ${estimativa.mensalDurante12.toLocaleString()}
+    <br>
+    Valor total: R$ ${(estimativa.setup * 12 + estimativa.mensalDurante12 * 12).toLocaleString()}
+    <br><br>
+    Após 12 meses:
+    <br>
+    R$ ${estimativa.mensalPos12.toLocaleString()} / mês
+    <br>
+    valor total: R$ ${(estimativa.mensalPos12 * 12).toLocaleString()}
+    <br>
+    <small>${estimativa.horasEstimadas}h • ${estimativa.mesesEstimados} mês(es)</small>
+  `;
+}
   const html = `
     <div class="row g-3">
       <div class="col-md-6"><strong>Nome:</strong><br>${lead.nome}</div>

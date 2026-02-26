@@ -95,6 +95,10 @@ canvas{
     }
 }
 
+.logo-navbar{
+    height:clamp(110px,12vw,220px);
+    filter:drop-shadow(0 0 30px rgba(124,58,237,.4));
+}
 
 /* ================================
    HERO
@@ -122,11 +126,6 @@ canvas{
 
 .logo-hero{
     height:clamp(100px,10vw,220px);
-    filter:drop-shadow(0 0 30px rgba(124,58,237,.4));
-}
-
-.logo-navbar{
-    height:clamp(80px,12vw,110px);
     filter:drop-shadow(0 0 30px rgba(124,58,237,.4));
 }
 
@@ -237,6 +236,55 @@ canvas{
 #lead .form-select:focus{
     border-color:var(--accent2);
     box-shadow:0 0 0 .2rem rgba(124,58,237,.2);
+}
+
+
+.footer-brand-wrapper {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.logo-footer {
+  height: 250px;
+  display: block;
+  margin: 0 auto;
+}
+
+.logo-footer:hover {
+  transform: scale(1.05);
+}
+
+.footer-tagline {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 30px;
+}
+
+.social-icon {
+  font-size: 1.6rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #7c3aed;
+  transform: translateY(-4px);
+}
+
+.footer-copy {
+  color: #6b7280;
+  font-size: 0.85rem;
 }
 
 /* ================================

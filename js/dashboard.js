@@ -647,10 +647,33 @@ function renderizarTabela(leads) {
 
     const estimativa = calcularEstimativa(lead);
 
-    let estimativaTexto = estimativa.projeto
-      ? `R$ ${estimativa.projeto.toLocaleString()}`
-      : `Setup: R$ ${estimativa.setup.toLocaleString()}<br>Mensal: R$ ${estimativa.mensal.toLocaleString()}`;
+let estimativaTexto = "";
 
+if (estimativa.tipoPagamento === "projeto") {
+  estimativaTexto = `
+    R$ ${estimativa.projeto.toLocaleString()}
+    <br>
+    <small>${estimativa.horasEstimadas}h • ${estimativa.mesesEstimados} mês(es)</small>
+  `;
+} else {
+  estimativaTexto = `
+    Durante 12 meses:
+    <br>
+    Setup: R$ ${estimativa.setup.toLocaleString()}/mês
+    <br>
+    + Mensal: R$ ${estimativa.mensalDurante12.toLocaleString()}
+    <br>
+    Valor total: R$ ${(estimativa.setup * 12 + estimativa.mensalDurante12 * 12).toLocaleString()}
+    <br><br>
+    Após 12 meses:
+    <br>
+    R$ ${estimativa.mensalPos12.toLocaleString()} / mês
+    <br>
+    valor total: R$ ${(estimativa.mensalPos12 * 12).toLocaleString()}
+    <br>
+    <small>${estimativa.horasEstimadas}h • ${estimativa.mesesEstimados} mês(es)</small>
+  `;
+}
     tbody.innerHTML += `
       <tr>
         <td>${lead.nome}</td>
