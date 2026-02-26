@@ -94,35 +94,63 @@ function atualizarDashboard(leads) {
 
     const estimativa = calcularEstimativa(lead);
 
-    if (estimativa.projeto) {
-      totalInicial += estimativa.projeto;
+    // ===============================
+    // PROJETO FECHADO
+    // ===============================
+
+    if (estimativa.tipoPagamento === "projeto") {
+      totalInicial += estimativa.projeto || 0;
       modeloContador.projeto++;
     }
 
-    if (estimativa.setup && estimativa.mensal) {
-      totalInicial += estimativa.setup;
-      totalMensal += estimativa.mensal;
+    // ===============================
+    // RECORRENTE
+    // ===============================
+
+    if (estimativa.tipoPagamento === "recorrente") {
+
+      const setupTotal = (estimativa.setup || 0) * 12;
+
+      totalInicial += setupTotal;
+      totalMensal += estimativa.mensalDurante12 || 0;
+
       recorrentes++;
       modeloContador.recorrente++;
     }
+
+    // ===============================
+    // CONTADOR POR TIPO
+    // ===============================
 
     tipoContador[lead.tipo_sistema] =
       (tipoContador[lead.tipo_sistema] || 0) + 1;
   });
 
-  const total12Meses = totalInicial + (totalMensal * 12);
-  const ticketMedio = leads.length ? totalInicial / leads.length : 0;
+  // ===============================
+  // PROJEÇÕES
+  // ===============================
+
+  const total12Meses =
+    totalInicial + (totalMensal * 12);
+
+  const ticketMedio =
+    leads.length ? totalInicial / leads.length : 0;
+
   const percentualRecorrente =
     leads.length ? (recorrentes / leads.length) * 100 : 0;
 
+  // ===============================
+  // ATUALIZA DOM
+  // ===============================
+
   document.getElementById("valorInicial").textContent =
-    "R$ " + totalInicial.toLocaleString();
+    "R$ " + Math.round(totalInicial).toLocaleString();
 
   document.getElementById("valorMensal").textContent =
-    "R$ " + totalMensal.toLocaleString();
+    "R$ " + Math.round(totalMensal).toLocaleString();
 
   document.getElementById("valor12Meses").textContent =
-    "R$ " + total12Meses.toLocaleString();
+    "R$ " + Math.round(total12Meses).toLocaleString();
 
   document.getElementById("ticketMedio").textContent =
     "R$ " + Math.round(ticketMedio).toLocaleString();
@@ -130,13 +158,18 @@ function atualizarDashboard(leads) {
   document.getElementById("percentualRecorrente").textContent =
     percentualRecorrente.toFixed(1) + "%";
 
+  // ===============================
+  // GRÁFICOS
+  // ===============================
+
   gerarGraficoModelo(modeloContador);
   gerarGraficoTipo(leads);
   gerarGraficoTemporal(leads);
   gerarGraficoConversao(todosLeads);
-  atualizarMetaAnual(total12Meses);
-  atualizarMetaRecorrente(totalMensal);}
 
+  atualizarMetaAnual(total12Meses);
+  atualizarMetaRecorrente(totalMensal);
+}
 // ================= RENDER TABELA =================
 function renderizarTabela(leads) {
 
