@@ -57,17 +57,14 @@ const META_RECORRENTE_MENSAL = 6750; // meta recorrente mensal
 async function carregarLeads() {
 
   try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/leads?select=*`, {
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
-      }
-    });
+    const { data, error } = await supabaseLogin
+    .from("leads")
+    .select("*");
 
-    if (!response.ok) throw new Error("Erro ao buscar leads");
+    if (error) throw new Error("Erro ao buscar leads");
 
-    todosLeads = await response.json();
-    
+    todosLeads = data;
+
     atualizarDashboard(todosLeads);
     renderizarTabela(todosLeads);
     aplicarFiltros();
@@ -555,23 +552,14 @@ function atualizarMetaRecorrente(totalMensal) {
 async function atualizarStatus(id) {
 
   const novoStatus = document.getElementById("statusSelect").value;
-console.log(novoStatus);
   try {
 
-    const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/leads?id=eq.${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ status: novoStatus })
-      }
-    );
+    const { data, error } = await supabaseLogin
+    .from("leads")
+    .update({ status: novoStatus })
+    .eq("id", id);
 
-    if (!response.ok) throw new Error("Erro ao atualizar");
+    if (error) throw new Error("Erro ao atualizar");
 
     showToast("Status atualizado com sucesso");
 
@@ -707,11 +695,6 @@ function mudarPagina(pagina) {
   paginaAtual = pagina;
   aplicarFiltros();
 }
-
-
-
-
-
 
 
 // ================= INIT =================

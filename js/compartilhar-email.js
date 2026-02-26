@@ -1,3 +1,28 @@
+async function enviarEmail(lead) {
+ try {
+  const estimativa = calcularEstimativa(lead);
+
+  const response = await fetch(
+    `${SUPABASE_URL}/functions/v1/enviar-email`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ lead, estimativa })
+    }
+  );
+
+  if (!response.ok) throw new Error("Erro Supabase");
+
+  showToast("Email enviado com sucesso!");
+
+ } catch (error) {
+  console.error(error);
+  showToast("Erro ao enviar. Tente novamente.", false);
+ }
+}
+
 function enviarEmailDashboard(lead) {
 
   const estimativa = calcularEstimativa(lead);

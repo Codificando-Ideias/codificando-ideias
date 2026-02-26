@@ -129,7 +129,8 @@ $("#contactForm").submit(async function (e) {
 
     // ================= SUCCESS =================
     showToast("Solicitação enviada com sucesso! Entraremos em contato.");
-    enviarWhatsApp(data);
+    enviarEmail(data);
+    //enviarWhatsApp(data);
     $("#contactForm")[0].reset();
     $("#contador").text("0");
 
