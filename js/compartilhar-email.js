@@ -15,11 +15,8 @@ async function enviarEmail(lead) {
 
   if (!response.ok) throw new Error("Erro Supabase");
 
-  showToast("Email enviado com sucesso!");
-
  } catch (error) {
   console.error(error);
-  showToast("Erro ao enviar. Tente novamente.", false);
  }
 }
 
