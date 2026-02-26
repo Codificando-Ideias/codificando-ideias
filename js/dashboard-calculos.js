@@ -19,11 +19,11 @@ function calcularEstruturaFinanceiraEmpresa() {
     taxasBancarias: 0,  // muitas contas digitais oferecem isenção de taxas, mas é importante considerar possíveis custos futuros
 
     // Comercial
-    marketing: 100, // custo médio mensal com marketing digital (anúncios, ferramentas de automação, etc.)
+    marketing: 50, // custo médio mensal com marketing digital (anúncios, ferramentas de automação, etc.)
     ferramentasExtras: 0, // custo médio mensal com ferramentas extras (CRM, automação, etc.)
 
     // Planejamento futuro
-    upgradeInfraFuturo: 150 // reserva mensal para possíveis upgrades de infraestrutura à medida que a empresa cresce
+    upgradeInfraFuturo: 50 // reserva mensal para possíveis upgrades de infraestrutura à medida que a empresa cresce
   };
 
   const totalFixoMensal = Object.values(custosFixos)
@@ -31,9 +31,9 @@ function calcularEstruturaFinanceiraEmpresa() {
 
   const percentuais = {
     taxaGateway: 0.04,  // percentual médio de taxa de gateways de pagamento (ex: Stripe, PayPal)  
-    custosOperacionais: 0.10, // percentual médio para cobrir custos operacionais variáveis (infraestrutura, ferramentas, etc.)
-    reservaEmergencia: 0.05,  // percentual para reserva de emergência, garantindo segurança financeira em imprevistos
-    reinvestimento: 0.05,// percentual para reinvestimento no crescimento da empresa (marketing, melhorias, etc.)
+    custosOperacionais: 0.05, // percentual médio para cobrir custos operacionais variáveis (infraestrutura, ferramentas, etc.)
+    reservaEmergencia: 0.01,  // percentual para reserva de emergência, garantindo segurança financeira em imprevistos
+    reinvestimento: 0.01,// percentual para reinvestimento no crescimento da empresa (marketing, melhorias, etc.)
     bufferRisco: 0.03// percentual para buffer de risco, protegendo a empresa contra variações inesperadas de receita ou custos
   };
 
@@ -105,9 +105,9 @@ function calcularCustosOperacionaisProjeto(tipoProjeto) {
     default:
       detalhamento = {
         dominioCliente: 50,
-        vps: 40,
+        vps: 0,
         supabase: 0,
-        backup: 20
+        backup: 0
       };
   }
 
