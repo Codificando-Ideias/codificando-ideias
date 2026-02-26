@@ -100,6 +100,10 @@ canvas{
     filter:drop-shadow(0 0 30px rgba(124,58,237,.4));
 }
 
+.logo-navbar:hover {
+  transform: scale(1.05);
+}
+
 /* ================================
    HERO
 ================================ */
