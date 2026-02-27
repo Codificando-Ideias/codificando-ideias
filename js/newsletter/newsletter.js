@@ -83,16 +83,23 @@ $("#newsletterForm").submit(async function (e) {
 
   try {
 
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/newsletter_subscribers`, {
-      method: "POST",
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-        "Content-Type": "application/json",
-        "Prefer": "return=minimal"
-      },
-      body: JSON.stringify(data)
-    });
+    const token = await gerarRecaptchaToken();
+
+    const response = await fetch(
+      "https://vwzxirmphsnwflphiaog.supabase.co/functions/v1/subscriber-newsletter",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          ...data,
+          recaptcha_token: token
+        })
+      }
+    );
 
     if (response.status === 409) {
       showToast("Email ou WhatsApp já cadastrado.", false);
@@ -112,5 +119,20 @@ $("#newsletterForm").submit(async function (e) {
 
   btn.prop("disabled", false).html("Inscrever-se");
 });
+
+async function gerarRecaptchaToken() {
+  return new Promise((resolve, reject) => {
+    if (!window.grecaptcha) {
+      reject("reCAPTCHA não carregado");
+      return;
+    }
+
+    grecaptcha.ready(() => {
+      grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "lead_submit" })
+        .then(resolve)
+        .catch(reject);
+    });
+  });
+}
 
 });
