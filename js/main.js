@@ -19,6 +19,12 @@ $("#whatsapp").on("input", function () {
   $(this).val(value);
 });
 
+// ================= DESCRICAO COUNTER =================
+$("#descricao").on("input", function () {
+  const totalCaracteres = $(this).val().length;
+  $("#contador").text(totalCaracteres);
+});
+
 // ================= WHATSAPP VALIDATION =================
 function isValidWhatsApp(number) {
   const digits = number.replace(/\D/g, "");

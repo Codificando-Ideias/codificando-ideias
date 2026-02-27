@@ -92,7 +92,13 @@
 
     <!-- LOGO -->
    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-  <img src="./assets/imgLogo2.png" alt="Codificando Ideias" class="logo-navbar">
+  <img src="./assets/logo-master-transparent.png"
+       alt="Codificando Ideias"
+       class="logo-navbar"
+       width="200"
+       height="200"
+       decoding="async"
+       fetchpriority="high">
       
   </a>
   
@@ -454,10 +460,10 @@
     id="descricao"
     rows="4" 
     maxlength="1000"
-    placeholder="Explique o que você deseja desenvolver (até 300 caracteres)"
+    placeholder="Explique o que você deseja desenvolver (até 1000 caracteres)"
     required>
   </textarea>
-  <div class="text-end small text-muted">
+  <div class="text-end small text-white-50">
     <span id="contador">0</span>/1000 caracteres
   </div>
 </div>
@@ -477,7 +483,7 @@
         Receber Proposta Personalizada
       </button>
 
-      <p class="small text-center mt-3 text-muted">
+      <p class="small text-center mt-3 text-white-50">
         Seus dados estão seguros e não compartilhamos informações.
       </p>
 
@@ -492,9 +498,13 @@
     <div class="footer-brand-wrapper">
       <a href="index.html">
 
-        <img src="./assets/imgLogo2.png"
+        <img src="./assets/logo-master-transparent.png"
             alt="Codificando Ideias"
-            class="logo-footer">
+            class="logo-footer"
+            width="300"
+            height="150"
+            decoding="async"
+            loading="lazy">
       </a>
   <span class="footer-tagline">
     Impulsionando negócios através da tecnologia.
@@ -543,19 +553,19 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="js/configSettings.js"></script>
+<script defer src="js/configSettings.js"></script>
 <!--<script src="js/compartilhar-whatsapp.js"></script>-->
-<script src="js/dashboard-calculos.js"></script>
-<script src="js/compartilhar-email.js"></script>
-<script src="js/toast.js"></script>
-<script src="js/canvas.js"></script>
-<script src="js/animations.js"></script>
-<script src="js/main.js"></script>
+<script defer src="js/dashboard-calculos.js"></script>
+<script defer src="js/compartilhar-email.js"></script>
+<script defer src="js/toast.js"></script>
+<script defer src="js/canvas.js"></script>
+<script defer src="js/animations.js"></script>
+<script defer src="js/main.js"></script>
 
 
-<script src="https://www.google.com/recaptcha/api.js?render=SUA_CHAVE_RECAPTCHA_V3"></script>
+<script async defer src="https://www.google.com/recaptcha/api.js?render=SUA_CHAVE_RECAPTCHA_V3"></script>
 </body>
 </html>

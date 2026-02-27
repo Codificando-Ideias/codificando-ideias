@@ -87,6 +87,12 @@
   color: #dcdcdc;
 }
 
+#newsletterForm .form-control::placeholder{
+    color:rgba(255,255,255,.5);
+    opacity:1;
+}
+
+
 /* ============================= */
 /* CHECKBOX */
 /* ============================= */

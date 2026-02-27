@@ -249,6 +249,11 @@ canvas{
     box-shadow:0 0 0 .2rem rgba(124,58,237,.2);
 }
 
+#lead .form-control::placeholder{
+    color:rgba(255,255,255,.5);
+    opacity:1;
+}
+
 
 .footer-brand-wrapper {
   position: relative;
