@@ -1,0 +1,115 @@
+/* ============================= */
+/* BASE */
+/* ============================= */
+
+body {
+  min-height: 100vh;
+}
+
+#newsletter {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #0f0f0f 0%, #000000 100%);
+}
+
+#newsletter h2 {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+#newsletter p {
+  color: #b5b5b5;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* ============================= */
+/* CARD */
+/* ============================= */
+
+#unsubscribeBox {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  transition: all 0.3s ease;
+}
+
+#unsubscribeBox:hover {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+#emailDisplay {
+  color: #cbd5e1 !important;
+  font-size: 0.98rem;
+  word-break: break-word;
+}
+
+#emailDisplay strong {
+  color: #f8fafc;
+}
+
+/* ============================= */
+/* BUTTON */
+/* ============================= */
+
+#confirmUnsubscribe {
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 0.8rem 1rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 24px rgba(220, 53, 69, 0.2);
+}
+
+#confirmUnsubscribe:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(220, 53, 69, 0.3);
+}
+
+#confirmUnsubscribe:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.35);
+}
+
+/* ============================= */
+/* FEEDBACK */
+/* ============================= */
+
+#feedback .alert {
+  margin-bottom: 0;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+#feedback .alert-success {
+  background: rgba(25, 135, 84, 0.16);
+  color: #d1fae5;
+  border-color: rgba(25, 135, 84, 0.35);
+}
+
+#feedback .alert-danger {
+  background: rgba(220, 53, 69, 0.16);
+  color: #fecaca;
+  border-color: rgba(220, 53, 69, 0.35);
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 768px) {
+  #newsletter {
+    padding: 60px 20px;
+    align-items: flex-start;
+  }
+
+  #newsletter h2 {
+    font-size: 1.65rem;
+  }
+
+  #unsubscribeBox {
+    padding: 1.25rem !important;
+  }
+}
