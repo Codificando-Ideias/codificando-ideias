@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-
-// ================= ANTI-BOT TEMPO =================
 let formLoadedAt = Date.now();
 
 // ================= WHATSAPP MASK =================
@@ -19,40 +17,32 @@ $("#whatsapp").on("input", function () {
   $(this).val(value);
 });
 
-// ================= WHATSAPP VALIDATION =================
+// ================= VALIDATIONS =================
 function isValidWhatsApp(number) {
   const digits = number.replace(/\D/g, "");
 
-  // Deve ter 11 dígitos
   if (digits.length !== 11) return false;
 
   const ddd = parseInt(digits.substring(0, 2), 10);
   const ninthDigit = digits.charAt(2);
 
-  // DDD válido entre 11 e 99
   if (ddd < 11 || ddd > 99) return false;
-
-  // Celular brasileiro começa com 9 após DDD
   if (ninthDigit !== "9") return false;
 
   return true;
 }
 
-// ================= EMAIL VALIDATION =================
 function isValidEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 }
 
-
 // ================= FORM SUBMIT =================
-$("#contactForm").submit(async function (e) {
+$("#newsletterForm").submit(async function (e) {
   e.preventDefault();
 
-  // Honeypot
   if ($("#company").val() !== "") return;
 
-  // Tempo mínimo (anti-bot)
   if (Date.now() - formLoadedAt < 3000) {
     showToast("Envio muito rápido. Tente novamente.", false);
     return;
@@ -65,47 +55,35 @@ $("#contactForm").submit(async function (e) {
   `);
 
   const data = {
-    tipo_sistema: $("#tipoSistema").val(),
-    modelo_contratacao: $("#modeloContratacao").val(),
-    nome: $("#nome").val().trim(),
+    name: $("#name").val().trim(),
     email: $("#email").val().trim(),
     whatsapp: $("#whatsapp").val().replace(/\D/g, ""),
-    descricao: $("#descricao").val().trim(),
-    link_empresa: $("#linkEmpresa").val().trim(),
+    accepted_terms: $("#acceptedTerms").is(":checked"),
+    source: "newsletter_page",
     created_at: new Date().toISOString()
   };
 
-  // Validação
-  if (!data.tipo_sistema || !data.modelo_contratacao || !data.nome || !data.email) {
+  if (!data.name || !data.email || !data.whatsapp) {
     showToast("Preencha todos os campos obrigatórios.", false);
-    btn.prop("disabled", false).text("Receber Proposta Personalizada");
+    btn.prop("disabled", false).html("Inscrever-se");
     return;
   }
 
   if (!isValidEmail(data.email)) {
     showToast("Digite um e-mail válido.", false);
-    btn.prop("disabled", false).text("Receber Proposta Personalizada");
+    btn.prop("disabled", false).html("Inscrever-se");
     return;
   }
 
   if (!isValidWhatsApp(data.whatsapp)) {
-  showToast("Digite um WhatsApp válido com DDD (ex: 11987654321).", false);
-  btn.prop("disabled", false).text("Receber Proposta Personalizada");
-  return;
-}
+    showToast("Digite um WhatsApp válido com DDD (ex: 11987654321).", false);
+    btn.prop("disabled", false).html("Inscrever-se");
+    return;
+  }
 
   try {
 
-    // ================= RECAPTCHA V3 (opcional) =================
-    let recaptchaToken = null;
-
-    // if (typeof grecaptcha !== "undefined") {
-     //  recaptchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
-     //  data.recaptcha_token = recaptchaToken;
-    // }
-
-    // ================= ENVIO SUPABASE =================
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/newsletter_subscribers`, {
       method: "POST",
       headers: {
         "apikey": SUPABASE_ANON_KEY,
@@ -116,30 +94,23 @@ $("#contactForm").submit(async function (e) {
       body: JSON.stringify(data)
     });
 
+    if (response.status === 409) {
+      showToast("Email ou WhatsApp já cadastrado.", false);
+      btn.prop("disabled", false).html("Inscrever-se");
+      return;
+    }
+
     if (!response.ok) throw new Error("Erro Supabase");
 
-    // ================= WEBHOOK (WhatsApp / Email Automation) =================
-    //if (WEBHOOK_URL && WEBHOOK_URL.includes("http")) {
-    //  await fetch(WEBHOOK_URL, {
-    //    method: "POST",
-    //    headers: { "Content-Type": "application/json" },
-    //    body: JSON.stringify(data)
-    //  });
-    //}
-
-    // ================= SUCCESS =================
-    showToast("Solicitação enviada com sucesso! Entraremos em contato. 🚀");
-    enviarEmail(data);
-    //enviarWhatsApp(data);
-    $("#contactForm")[0].reset();
-    $("#contador").text("0");
+    showToast("Inscrição realizada com sucesso 🚀");
+    $("#newsletterForm")[0].reset();
 
   } catch (error) {
     console.error(error);
     showToast("Erro ao enviar. Tente novamente.", false);
   }
 
-  btn.prop("disabled", false).text("Receber Proposta Personalizada");
+  btn.prop("disabled", false).html("Inscrever-se");
 });
 
 });

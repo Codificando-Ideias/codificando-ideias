@@ -3,6 +3,7 @@ window.supabaseClient = window.supabase.createClient(
   SUPABASE_ANON_KEY,
   {
     auth: {
+      storage: window.localStorage,
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: true

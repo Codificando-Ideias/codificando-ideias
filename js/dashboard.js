@@ -608,6 +608,46 @@ async function atualizarStatus(id) {
   }
 }
 
+
+async function enviarNewsletterAdmin() {
+
+  const subject = "teste newsletter";
+  const content = "teste newsletter botão dashboard detalhes";
+
+  if (!subject || !content) {
+    showToast("Preencha assunto e conteúdo.", false);
+    return;
+  }
+
+  const { data } = await window.supabaseClient.auth.getSession();
+console.log(data);
+
+  try {
+
+    const { data, error } =
+      await window.supabaseClient.functions.invoke(
+        "send-newsletter",
+        {
+          body: {
+            subject,
+            content
+          }
+        }
+      );
+
+    if (error) {
+      throw error;
+    }
+
+    showToast(`Newsletter enviada com sucesso 🚀 (${data?.total_enviados || 0} enviados)`);
+
+  } catch (error) {
+    console.error("Newsletter error:", error);
+    showToast("Erro ao enviar newsletter.", false);
+  }
+
+}
+
 // ================= FILTRO STATUS =================
 document.getElementById("filtroStatus")
   ?.addEventListener("change", function () {

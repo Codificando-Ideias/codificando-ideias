@@ -78,6 +78,12 @@ if (estimativa.tipoPagamento === "projeto") {
         ${new Date(lead.created_at).toLocaleString()}
       </div>
     <div id="acoesContrato" class="mt-4 d-flex gap-2"></div>
+    <button class="btn btn-primary"
+        onclick="enviarNewsletterAdmin()">
+  <i class="bi bi-megaphone-fill me-1"></i>
+  Disparar Newsletter
+</button>
+
     </div>
   `;
 
@@ -144,3 +150,4 @@ function renderizarBotoesStatus(status) {
     `;
   }
 }
+
