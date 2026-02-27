@@ -102,36 +102,26 @@ $("#contactForm").submit(async function (e) {
 
   try {
 
-    // ================= RECAPTCHA V3 (opcional) =================
-    let recaptchaToken = null;
-
-    // if (typeof grecaptcha !== "undefined") {
-     //  recaptchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
-     //  data.recaptcha_token = recaptchaToken;
-    // }
-
     // ================= ENVIO SUPABASE =================
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-      method: "POST",
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-        "Content-Type": "application/json",
-        "Prefer": "return=minimal"
-      },
-      body: JSON.stringify(data)
-    });
+    const token = await gerarRecaptchaToken();
 
-    if (!response.ok) throw new Error("Erro Supabase");
+    const response = await fetch(
+      "https://vwzxirmphsnwflphiaog.supabase.co/functions/v1/lead",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          ...data,
+          recaptcha_token: token
+        })
+      }
+    );
 
-    // ================= WEBHOOK (WhatsApp / Email Automation) =================
-    //if (WEBHOOK_URL && WEBHOOK_URL.includes("http")) {
-    //  await fetch(WEBHOOK_URL, {
-    //    method: "POST",
-    //    headers: { "Content-Type": "application/json" },
-    //    body: JSON.stringify(data)
-    //  });
-    //}
+    if (!response.ok) throw new Error("Erro ao enviar");
 
     // ================= SUCCESS =================
     showToast("Solicitação enviada com sucesso! Entraremos em contato. 🚀");
@@ -147,5 +137,20 @@ $("#contactForm").submit(async function (e) {
 
   btn.prop("disabled", false).text("Receber Proposta Personalizada");
 });
+
+async function gerarRecaptchaToken() {
+  return new Promise((resolve, reject) => {
+    if (!window.grecaptcha) {
+      reject("reCAPTCHA não carregado");
+      return;
+    }
+
+    grecaptcha.ready(() => {
+      grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "lead_submit" })
+        .then(resolve)
+        .catch(reject);
+    });
+  });
+}
 
 });
