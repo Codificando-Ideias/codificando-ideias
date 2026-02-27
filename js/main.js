@@ -123,17 +123,57 @@ $("#contactForm").submit(async function (e) {
 
     if (!response.ok) throw new Error("Erro ao enviar");
 
-    // ================= SUCCESS =================
+  } catch (error) {
+    console.error(error);
+    showToast("Erro ao enviar. Tente novamente.", false);
+  }
+
+  var aceitou = $("#acceptedTerms").is(":checked");
+
+  if (aceitou) {
+    const dataNewsletter = {
+    name: data.nome,
+    email: data.email,
+    whatsapp: data.whatsapp,
+    accepted_terms: aceitou,
+    source: "landing_page",
+    created_at: new Date().toISOString()
+  };
+
+    try {
+
+    const token = await gerarRecaptchaToken();
+
+    const response = await fetch(
+      "https://vwzxirmphsnwflphiaog.supabase.co/functions/v1/subscriber-newsletter",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          ...dataNewsletter,
+          recaptcha_token: token
+        })
+      }
+    );
+
+    if (!response.ok) throw new Error("Erro Supabase");
+
+  } catch (error) {
+    console.error(error);
+  }
+
+}
+
+ // ================= SUCCESS =================
     showToast("Solicitação enviada com sucesso! Entraremos em contato. 🚀");
     enviarEmail(data);
     //enviarWhatsApp(data);
     $("#contactForm")[0].reset();
     $("#contador").text("0");
-
-  } catch (error) {
-    console.error(error);
-    showToast("Erro ao enviar. Tente novamente.", false);
-  }
 
   btn.prop("disabled", false).text("Receber Proposta Personalizada");
 });
