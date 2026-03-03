@@ -83,7 +83,9 @@ if (estimativa.tipoPagamento === "projeto") {
   <i class="bi bi-megaphone-fill me-1"></i>
   Disparar Newsletter
 </button>
-
+<button onclick="gerarPreview('landing-page')">
+  Gerar link preview (48h)
+</button>
     </div>
   `;
 

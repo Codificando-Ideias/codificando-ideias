@@ -648,6 +648,28 @@ console.log(data);
 
 }
 
+async function gerarPreview(template) {
+  const response = await fetch(
+    `${SUPABASE_URL}/functions/v1/generate-preview-link`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ template }),
+    }
+  );
+
+  const data = await response.json();
+
+  if (data.url) {
+    navigator.clipboard.writeText(data.url);
+    alert("Link copiado para área de transferência!");
+  } else {
+    alert("Erro ao gerar preview");
+  }
+}
+
 // ================= FILTRO STATUS =================
 document.getElementById("filtroStatus")
   ?.addEventListener("change", function () {
