@@ -6,6 +6,22 @@ async function verificarLogin() {
 
   if (!data.session) {
     window.location.href = "login.html";
+    return;
+  }
+
+  const { data: userData } =
+    await supabaseLogin.auth.getUser();
+
+  const role = userData.user?.app_metadata?.role;
+
+  if (role !== "admin") {
+
+    await supabaseLogin.auth.signOut();
+
+    alert("Acesso restrito ao administrador.");
+
+    window.location.href = "login.html";
+    return;
   }
 
 }
@@ -584,15 +600,42 @@ function atualizarMetaRecorrente(totalMensal) {
 
 async function atualizarStatus(id) {
 
-  const novoStatus = document.getElementById("statusSelect").value;
+  const novoStatus =
+    document.getElementById("statusSelect").value;
+
   try {
 
-    const { data, error } = await supabaseLogin
-    .from("leads")
-    .update({ status: novoStatus })
-    .eq("id", id);
+    // Atualiza lead
+    const { error } = await supabaseLogin
+      .from("leads")
+      .update({ status: novoStatus })
+      .eq("id", id);
 
-    if (error) throw new Error("Erro ao atualizar");
+    if (error) throw error;
+    
+    // Atualiza cliente se existir
+    const { data: cliente } = await supabaseLogin
+    .from("clientes")
+    .select("id")
+    .eq("lead_id", id)
+    .maybeSingle();
+
+  if (cliente) {
+
+    await supabaseLogin
+      .from("clientes")
+      .update({ status: novoStatus })
+      .eq("id", cliente.id);
+
+  }
+    if (cliente) throw cliente;
+
+    // ======================
+    // 📝 Proposta
+    // ======================
+    if (novoStatus === "Proposta") {
+      await liberarPortal(id);
+    }
 
     showToast("Status atualizado com sucesso");
 
@@ -604,7 +647,44 @@ async function atualizarStatus(id) {
     modal.hide();
 
   } catch (error) {
+
+    console.error(error);
     showToast("Erro ao atualizar status");
+
+  }
+
+}
+
+async function liberarPortal(leadId) {
+
+  if (!leadId) {
+    showToast("Lead inválido.", false);
+    return;
+  }
+
+  try {
+
+    const { data, error } =
+      await window.supabaseClient.functions.invoke(
+        "liberar-portal-cliente",
+        {
+          body: {
+            lead_id: leadId
+          }
+        }
+      );
+
+    if (error) {
+      throw error;
+    }
+
+    showToast("Portal liberado com sucesso 🚀");
+    console.log("Resposta:", data);
+
+  } catch (error) {
+
+    console.error("Erro liberarPortal:", error);
+    showToast("Erro ao liberar portal.", false);
   }
 }
 

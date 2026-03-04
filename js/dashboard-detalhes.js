@@ -1,4 +1,29 @@
 let leadAtual = null;
+const fluxoStatus = {
+
+  "Novo": ["Contato", "Cancelado"],
+
+  "Contato": ["Em Análise", "Cancelado"],
+
+  "Em Análise": ["Proposta", "Cancelado"],
+
+  "Proposta": ["Contrato", "Cancelado"],
+
+  "Contrato": ["Aguardando Pagamento", "Cancelado"],
+
+  "Aguardando Pagamento": ["Em Desenvolvimento", "Cancelado"],
+
+  "Em Desenvolvimento": ["Homologação", "Cancelado"],
+
+  "Homologação": ["Aguardando Produção", "Cancelado"],
+
+  "Aguardando Produção": ["Fechado", "Cancelado"],
+
+  "Fechado": [],
+
+  "Cancelado": []
+
+};
 // ================= MODAL DETALHES =================
 function abrirDetalhes(lead) {
   leadAtual = lead;
@@ -45,13 +70,7 @@ if (estimativa.tipoPagamento === "projeto") {
 <div class="col-md-6 mb-3"> <strong>WhatsApp:</strong><br> <button id="whatsappLink" class="btn btn-outline-success btn-sm mt-1"> <i class="bi bi-whatsapp me-1"></i> ${lead.whatsapp} </button> </div>      <div class="col-md-6"><strong>Tipo:</strong><br>${lead.tipo_sistema}</div>
       <div class="col-md-6"><strong>Modelo:</strong><br>${lead.modelo_contratacao}</div>
       <div class="col-md-6"><strong>Status:</strong><br>
-<select id="statusSelect" class="form-select mt-1">
-  <option ${lead.status === "Novo" ? "selected" : ""}>Novo</option>
-  <option ${lead.status === "Contato" ? "selected" : ""}>Contato</option>
-  <option ${lead.status === "Proposta" ? "selected" : ""}>Proposta</option>
-  <option ${lead.status === "Contrato" ? "selected" : ""}>Contrato</option>
-  <option ${lead.status === "Fechado" ? "selected" : ""}>Fechado</option>
-</select>
+<select id="statusSelect" class="form-select mt-1"></select>
 
 <button class="btn btn-sm btn-success mt-2"
   onclick="atualizarStatus('${lead.id}')">
@@ -90,6 +109,7 @@ if (estimativa.tipoPagamento === "projeto") {
   `;
 
   document.getElementById("leadDetalhes").innerHTML = html;
+  renderizarStatusSelect(lead.status);
 renderizarBotoesStatus(lead.status);
 const whatsappEl = document.getElementById("whatsappLink"); 
 if (whatsappEl) { 
@@ -117,8 +137,15 @@ function renderizarBotoesStatus(status) {
   const container = document.getElementById("acoesContrato");
   container.innerHTML = "";
 
-  if (status === "Proposta") {
-    container.innerHTML = `
+  const faseComercial = ["Proposta", "Aguardando Aprovação"];
+  const faseContrato = ["Contrato", "Em Desenvolvimento", "Homologação", "Fechado"];
+  const faseOperacional = ["Em Desenvolvimento", "Homologação"];
+
+  // ======================
+  // 📄 PROPOSTA
+  // ======================
+  if (faseComercial.includes(status)) {
+    container.innerHTML += `
       <button class="btn btn-primary"
         onclick="gerarPropostaPDF(leadAtual)">
         📄 Gerar Proposta
@@ -126,12 +153,20 @@ function renderizarBotoesStatus(status) {
     `;
   }
 
-  if (status === "Contrato") {
-    container.innerHTML = `
-     <button class="btn btn-primary"
+  if (faseContrato.includes(status)) {
+    container.innerHTML += `
+      <button class="btn btn-primary"
         onclick="gerarPropostaPDF(leadAtual)">
         📄 Visualizar Proposta
       </button>
+    `;
+  }
+
+  // ======================
+  // 📝 CONTRATO
+  // ======================
+  if (status === "Contrato") {
+    container.innerHTML += `
       <button class="btn btn-success"
         onclick="gerarContratoPDF(leadAtual)">
         📝 Gerar Contrato
@@ -139,17 +174,38 @@ function renderizarBotoesStatus(status) {
     `;
   }
 
-  if (status === "Fechado") {
-    container.innerHTML = `
-      <button class="btn btn-primary"
-        onclick="gerarPropostaPDF(leadAtual)">
-        📄 Visualizar Proposta
-      </button>
+  if (faseOperacional.includes(status) || status === "Fechado") {
+    container.innerHTML += `
       <button class="btn btn-success"
         onclick="gerarContratoPDF(leadAtual)">
         📝 Visualizar Contrato
       </button>
     `;
   }
+
+}
+
+function renderizarStatusSelect(statusAtual) {
+  const select = document.getElementById("statusSelect");
+
+  select.innerHTML = "";
+
+  // Sempre mostrar o status atual
+  const optionAtual = document.createElement("option");
+  optionAtual.value = statusAtual;
+  optionAtual.textContent = statusAtual + " (Atual)";
+  optionAtual.selected = true;
+  optionAtual.disabled = true;
+  select.appendChild(optionAtual);
+
+  // Buscar próximos permitidos
+  const proximos = fluxoStatus[statusAtual] || [];
+
+  proximos.forEach(status => {
+    const option = document.createElement("option");
+    option.value = status;
+    option.textContent = status;
+    select.appendChild(option);
+  });
 }
 
