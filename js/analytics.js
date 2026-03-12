@@ -117,31 +117,51 @@ window.ciAnalytics[key] = value;
 
 }
 
-async function saveAnalyticsLead(leadId){
+async function saveAnalyticsLead(leadId) {
 
-if(!window.ciAnalytics) return;
+if (!window.ciAnalytics) return;
 
-const start = localStorage.getItem("ci_session_start");
+const start = localStorage.getItem("ci_session_start") || Date.now();
 
-const duration = Math.floor((Date.now() - start)/1000);
+const duration = Math.floor((Date.now() - start) / 1000);
 
 const payload = {
-
 lead_id: leadId,
-
 ...window.ciAnalytics,
-
 session_duration: duration
-
 };
 
-const { error } = await supabase
-.from("analytics_leads")
-.insert([payload]);
+try {
 
-if(error){
+const response = await fetch(
+"https://vwzxirmphsnwflphiaog.supabase.co/functions/v1/analytics_leads",
+{
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+"apikey": SUPABASE_ANON_KEY,
+"Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+},
+body: JSON.stringify({
+...payload})
+}
+);
 
-console.error("analytics error:",error);
+if (!response.ok) {
+
+const errorText = await response.text();
+console.error("analytics function error:", errorText);
+return;
+
+}
+
+const result = await response.json();
+
+console.log("analytics saved:", result);
+
+} catch (err) {
+
+console.error("analytics request failed:", err);
 
 }
 
