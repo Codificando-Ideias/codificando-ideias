@@ -303,6 +303,28 @@ canvas{
   font-size: 0.85rem;
 }
 
+#tecnologias .card-tech {
+min-height: 180px;
+transition: transform .2s ease;
+}
+
+#tecnologias .card-tech:hover {
+transform: translateY(-4px);
+}
+
+.floating-cta{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#4f46e5;
+color:white;
+padding:12px 18px;
+border-radius:30px;
+font-weight:600;
+z-index:999;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
 /* ================================
    RESPONSIVE
 ================================ */

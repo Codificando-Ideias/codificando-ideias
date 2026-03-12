@@ -122,6 +122,26 @@ $("#contactForm").submit(async function (e) {
     );
 
     if (!response.ok) throw new Error("Erro ao enviar");
+      
+    // ================= Analytics =================
+      trackEvent("lead_created");
+      const result = await response.json();
+      const leadId = result.lead_id;
+      await saveAnalyticsLead(leadId).catch(err =>
+      console.warn("salvar na tabela analytics falhou", err)
+      );
+      if (typeof clarity !== "undefined") {
+
+      clarity("identify", leadId)
+      clarity("set", "lead_id", leadId)
+      clarity("set", "lead_email", data.email)
+      clarity("set", "tipo_sistema", data.tipo_sistema)
+      clarity("set", "modelo_contratacao", data.modelo_contratacao)
+      clarity("set", "nome", data.nome)
+      clarity("set", "whatsapp", data.whatsapp)
+      clarity("set", "descricao", data.descricao)
+      clarity("set", "link_empresa", data.link_empresa)
+    }
 
   } catch (error) {
     console.error(error);
@@ -169,6 +189,7 @@ $("#contactForm").submit(async function (e) {
 }
 
  // ================= SUCCESS =================
+   
     showToast("Solicitação enviada com sucesso! Entraremos em contato. 🚀");
     enviarEmail(data);
     //enviarWhatsApp(data);

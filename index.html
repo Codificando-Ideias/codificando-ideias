@@ -6,6 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+   <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vum64kfgua");
+</script>
+
     <!-- Primary SEO -->
     <title>Codificando Ideias | Soluções Digitais, Sistemas Sob Medida e Inteligência Artificial</title>
 
@@ -50,6 +59,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
+    <!--  clarity ms -->
+    <link rel="preconnect" href="https://www.clarity.ms">
+
     <!-- Performance -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
@@ -63,13 +75,25 @@
     <link href="css/styles.css" rel="stylesheet">
 
     <!-- Structured Data (Organization) -->
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Codificando Ideias",
+    "url": "https://codificandoideias.com"
+    }
+    </script>
+
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "ProfessionalService",
       "name": "Codificando Ideias",
       "url": "https://codificandoideias.com/",
       "logo": "https://codificandoideias.com/assets/logo-square-dark-1080.png",
+      "areaServed": "Brazil",
+      "serviceType": "Software Development",
       "description": "Empresa especializada em desenvolvimento de sistemas sob medida, soluções digitais estratégicas e Inteligência Artificial aplicada a negócios.",
       "founder": {
         "@type": "Person",
@@ -80,6 +104,39 @@
       ]
     }
     </script>
+
+    <script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Quanto custa desenvolver um sistema?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "O custo depende da complexidade, integrações e funcionalidades do projeto. Após entender sua necessidade, apresentamos uma proposta personalizada."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Quanto tempo leva para desenvolver um projeto?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Projetos menores podem levar algumas semanas, enquanto sistemas mais complexos podem levar alguns meses. Sempre definimos cronogramas claros antes de iniciar."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Vocês fazem integração com ERP ou outros sistemas?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sim. Desenvolvemos integrações com APIs, ERPs, CRMs e outras plataformas para automatizar processos e conectar sistemas."
+   }
+  }
+ ]
+}
+</script>
 </head>
 
 <body>
@@ -115,10 +172,12 @@
 
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#problemas">Resolvemos</a></li>
         <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
         <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
         <li class="nav-item"><a class="nav-link" href="#processo">Etapas</a></li>
         <li class="nav-item"><a class="nav-link" href="#diferenciais">Diferenciais</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tecnologias">Tecnologias</a></li>
         <li class="nav-item"><a class="nav-link" href="#modelos">Pacotes</a></li>
         <li class="nav-item"><a class="nav-link" href="#lead">Orçamento</a></li>
       </ul>
@@ -145,11 +204,54 @@
   </p>
 
 
-    <a href="#lead" class="btn btn-gradient btn-lg mt-4 fade-in">
+    <a href="#lead" id="cta-especialista" class="btn btn-gradient btn-lg mt-4 fade-in"  aria-label="Falar com especialista sobre desenvolvimento de software">
       <i class="bi bi-lightning-charge-fill me-2"></i>
       Falar com um Especialista
     </a>
   </div>
+</section>
+
+
+<!-- PROBLEMAS QUE RESOLVEMOS -->
+<section id="problemas" class="section-dark-alt">
+<div class="container text-center">
+<h2 class="fade-in mb-4">
+      <i class="bi bi-lightbulb me-2"></i>Problemas que resolvemos com tecnologia
+</h2>
+
+<div class="row g-4">
+  <div class="col-md-4 fade-in">
+        <div class="card-tech p-4" onclick="abrirProblema('AutomacaoProcessos')">
+          <i class="bi bi-robot fs-1 mb-3"></i>
+          <h3 class="h5">Automação de processos</h3>
+          <p>
+            Eliminamos tarefas repetitivas com automações inteligentes.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4 fade-in">
+        <div class="card-tech p-4" onclick="abrirProblema('ModernizacaoSistemas')">
+          <i class="bi bi-gear-wide-connected fs-1 mb-3"></i>
+          <h3 class="h5">Modernização de sistemas</h3>
+          <p>
+            Migramos sistemas legados para tecnologias modernas, garantindo performance e segurança.
+          </p>
+        </div>
+      </div>
+
+   <div class="col-md-4 fade-in">
+        <div class="card-tech p-4" onclick="abrirProblema('IntegracaoSistemas')">
+          <i class="bi bi-plug fs-1 mb-3"></i>
+          <h3 class="h5">Integração de sistemas</h3>
+          <p>
+            Conectamos APIs, ERPs e plataformas para criar soluções unificadas.
+          </p>
+        </div>
+      </div>
+
+</div>
+</div>
 </section>
 
 <!-- SOBRE -->
@@ -190,7 +292,7 @@
     <div class="row g-4">
 
       <div class="col-md-4 fade-in">
-        <div class="card-tech p-4">
+        <div class="card-tech p-4" onclick="abrirServico('sitesProfissionais')">
           <i class="bi bi-globe2 fs-1 mb-3"></i>
           <h3 class="h5">Sites Profissionais</h3>
           <p>
@@ -201,7 +303,7 @@
       </div>
 
       <div class="col-md-4 fade-in">
-        <div class="card-tech p-4">
+        <div class="card-tech p-4" onclick="abrirServico('sistemasPersonalizados')">
           <i class="bi bi-gear-wide-connected fs-1 mb-3"></i>
           <h3 class="h5">Sistemas Personalizados</h3>
           <p>
@@ -213,8 +315,8 @@
       </div>
 
       <div class="col-md-4 fade-in">
-        <div class="card-tech p-4">
-          <i class="bi bi-cpu fs-1 mb-3"></i>
+        <div class="card-tech p-4" onclick="abrirServico('inteligenciaArtificial')">
+          <i class="bi bi-robot fs-1 mb-3"></i>
           <h3 class="h5">Inteligência Artificial</h3>
           <p>
             Criamos soluções com IA para automatizar atendimentos, analisar dados
@@ -227,8 +329,26 @@
   </div>
 </section>
 
+<!-- CTA intermediário após seção de serviços -->
+<section id="cta-mid" class="section-dark">
+<div class="container text-center">
+  <h3 class="fade-in mb-4">
+      <i class="bi bi-building me-2"></i>Tem um projeto em mente?
+    </h3>
+
+<p class="mt-4 col-md-8 mx-auto fade-in">
+Solicite uma análise gratuita do seu sistema.
+</p>
+
+<a href="#lead" id="cta-mid-especialista" class="btn btn-gradient btn-lg mt-4 fade-in"  aria-label="Falar com especialista sobre desenvolvimento de software">
+      <i class="bi bi-lightning-charge-fill me-2"></i>
+      Falar com um Especialista
+    </a>
+</div>
+</section>
+
 <!-- PROCESSO -->
-<section id="processo" class="section-dark">
+<section id="processo" class="section-dark-alt">
   <div class="container text-center">
     <h2 class="fade-in mb-5">
       <i class="bi bi-diagram-3-fill me-2"></i>
@@ -274,7 +394,7 @@
 </section>
 
 <!-- DIFERENCIAIS -->
-<section id="diferenciais" class="section-dark-alt">
+<section id="diferenciais" class="section-dark">
   <div class="container text-center">
     <h2 class="fade-in mb-5">
       <i class="bi bi-award-fill me-2"></i>
@@ -311,6 +431,106 @@
   </div>
 </section>
 
+<!-- TECNOLOGIAS -->
+<section id="tecnologias" class="section-dark-alt">
+<div class="container text-center">
+
+<h2 class="mb-4">
+<i class="bi bi-cpu me-2"></i>
+Tecnologias que utilizamos
+</h2>
+
+<p class="col-md-8 mx-auto mb-5">
+Utilizamos tecnologias modernas e arquiteturas escaláveis para desenvolver
+sistemas seguros, performáticos e preparados para crescimento.
+</p>
+
+<div class="row g-4">
+
+<!-- CLOUD -->
+<div class="col-md-4">
+<div class="card-tech p-4 h-100">
+<h3 class="h6 mb-3">☁ Cloud & Infraestrutura</h3>
+<ul class="list-unstyled small">
+<li>AWS</li>
+<li>Microsoft Azure</li>
+<li>Google Cloud</li>
+<li>Docker</li>
+<li>Kubernetes</li>
+</ul>
+</div>
+</div>
+
+<!-- BACKEND -->
+<div class="col-md-4">
+<div class="card-tech p-4 h-100">
+<h3 class="h6 mb-3">⚙ Backend & APIs</h3>
+<ul class="list-unstyled small">
+<li>ASP.NET Core</li>
+<li>.NET / C#</li>
+<li>APIs REST</li>
+<li>Arquitetura de Microsserviços</li>
+</ul>
+</div>
+</div>
+
+<!-- INTEGRAÇÃO -->
+<div class="col-md-4">
+<div class="card-tech p-4 h-100">
+<h3 class="h6 mb-3">🔗 Integração & Mensageria</h3>
+<ul class="list-unstyled small">
+<li>RabbitMQ</li>
+<li>Apache Kafka</li>
+<li>Redis</li>
+<li>Integração de APIs</li>
+</ul>
+</div>
+</div>
+
+<!-- BANCO -->
+<div class="col-md-4">
+<div class="card-tech p-4 h-100">
+<h3 class="h6 mb-3">🗄 Banco de Dados</h3>
+<ul class="list-unstyled small">
+<li>PostgreSQL</li>
+<li>SQL / NoSQL</li>
+<li>Supabase</li>
+<li>Firebase</li>
+</ul>
+</div>
+</div>
+
+<!-- DEVOPS -->
+<div class="col-md-4">
+<div class="card-tech p-4 h-100">
+<h3 class="h6 mb-3">🚀 DevOps & Deploy</h3>
+<ul class="list-unstyled small">
+<li>GitHub</li>
+<li>GitLab</li>
+<li>Bitbucket</li>
+<li>Netlify</li>
+<li>Vercel</li>
+</ul>
+</div>
+</div>
+
+<!-- IA -->
+<div class="col-md-4">
+<div class="card-tech p-4 h-100">
+<h3 class="h6 mb-3">🤖 Inteligência Artificial</h3>
+<ul class="list-unstyled small">
+<li>OpenAI</li>
+<li>Google Gemini</li>
+<li>Claude</li>
+<li>Automação com IA</li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
 <!-- MÉTRICAS -->
 <!--<section class="section-dark text-center">
   <div class="container">
@@ -324,7 +544,7 @@
 </section>-->
 
 <!-- MODELOS DE CONTRATAÇÃO -->
-<section id="modelos" class="section-dark-alt text-center">
+<section id="modelos" class="section-dark text-center">
   <div class="container">
     <h2 class="mb-4">
       <i class="bi bi-briefcase-fill me-2"></i>
@@ -340,7 +560,7 @@
 
       <!-- PROJETO FECHADO -->
       <div class="col-md-4">
-        <div class="card-tech p-4 h-100">
+        <div class="card-tech p-4 h-100" onclick="abrirModeloContratacao('ProjetoFechado')">
           <i class="bi bi-box-seam fs-1 mb-3"></i>
           <h3 class="h5">Projeto Fechado</h3>
           <p>
@@ -357,7 +577,7 @@
 
       <!-- PLANO RECORRENTE (DESTAQUE) -->
       <div class="col-md-4">
-        <div class="card-tech p-4 border-accent h-100 position-relative">
+        <div class="card-tech p-4 border-accent h-100 position-relative" onclick="abrirModeloContratacao('PlanoRecorrente')">
 
           <span class="badge bg-gradient position-absolute top-0 start-50 translate-middle px-3 py-2">
             Sucesso de vendas
@@ -380,7 +600,7 @@
 
       <!-- PACOTE FLEXÍVEL -->
       <div class="col-md-4">
-        <div class="card-tech p-4 h-100">
+        <div class="card-tech p-4 h-100" onclick="abrirModeloContratacao('PacoteFlexivel')">
           <i class="bi bi-clock-history fs-1 mb-3"></i>
           <h3 class="h5">Pacote Flexível</h3>
           <p>
@@ -399,8 +619,26 @@
 
   </div>
 </section>
+
+<!-- Prova Social -->
+<section id="provaSocial" class="section-dark text-center">
+<div class="container">
+
+<h3 class="mb-3">
+Empresas e startups utilizam nossas soluções
+</h3>
+
+<p class="text-white-50 col-md-6 mx-auto">
+Criamos sistemas e plataformas digitais que ajudam empresas
+a organizar processos, automatizar operações e crescer com tecnologia.
+</p>
+
+</div>
+</section>
+
+
 <!-- FUNIL / LEAD -->
-<section id="lead" class="section-dark text-center">
+<section id="lead" class="section-dark-alt text-center">
   <div class="container">
 
     <h2 class="mb-4">
@@ -483,7 +721,7 @@
     class="form-control" 
     placeholder="https://seusite.com ou https://instagram.com/suaempresa">
 </div>
-<input type="text" id="company" style="display:none">
+<input name="company" autocomplete="off" type="text" id="company" style="display:none">
 <!-- Aceite -->
         <div class="form-check mb-4">
           <input class="form-check-input" type="checkbox" id="acceptedTerms" checked>
@@ -496,11 +734,66 @@
         Receber Proposta Personalizada
       </button>
 
+      <p class="small text-white-50 text-center mt-3">
+✔ Resposta em até 24h  
+✔ Sem compromisso  
+✔ Análise gratuita do projeto
+</p>
+
       <p class="small text-center mt-3 text-white-50">
         Seus dados estão seguros e não compartilhamos informações.
       </p>
 
     </form>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section-dark">
+  <div class="container text-center">
+
+    <h2 class="mb-5">
+      <i class="bi bi-question-circle-fill me-2"></i>
+      Perguntas Frequentes
+    </h2>
+
+    <div class="row g-4 text-start">
+
+      <div class="col-md-4">
+        <div class="card-tech p-4 h-100">
+          <h3 class="h6">Quanto custa desenvolver um sistema?</h3>
+          <p class="small">
+            O custo depende do tipo de solução, complexidade e integrações necessárias.
+            Sistemas simples podem levar poucas semanas, enquanto plataformas mais robustas
+            exigem planejamento maior. Após entender sua necessidade, apresentamos uma
+            proposta personalizada.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card-tech p-4 h-100">
+          <h3 class="h6">Quanto tempo leva para desenvolver um projeto?</h3>
+          <p class="small">
+            O prazo varia conforme o escopo. Projetos menores podem levar de 2 a 6 semanas,
+            enquanto sistemas mais complexos podem levar alguns meses. Sempre definimos
+            cronogramas claros antes de iniciar o desenvolvimento.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card-tech p-4 h-100">
+          <h3 class="h6">Vocês fazem integração com outros sistemas ou ERPs?</h3>
+          <p class="small">
+            Sim. Desenvolvemos integrações com APIs, ERPs, CRMs e plataformas externas,
+            permitindo automatizar processos e conectar diferentes sistemas da empresa.
+          </p>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 </section>
@@ -526,7 +819,7 @@
 
     <div class="footer-social">
     <a href="https://www.linkedin.com/company/codificando-ideias/" target="_blank"
-         rel="noopener noreferrer" class="text-light mx-2 fs-4"><i class="bi bi-linkedin"></i></a>
+         rel="noopener noreferrer" class="text-light social-icon mx-2 fs-4"><i class="bi bi-linkedin"></i></a>
 
       <a href="https://github.com/Codificando-Ideias"
          target="_blank"
@@ -545,7 +838,14 @@
       </a>
 
       <a href="https://codificandoideias.substack.com/" target="_blank"
-         rel="noopener noreferrer" class="text-light mx-2 fs-4"><i class="bi bi-substack"></i></a>
+         rel="noopener noreferrer" class="text-light social-icon mx-2 fs-4" aria-label="Substack da Codificando Ideias">
+        <i class="bi bi-substack"></i>
+      </a>
+
+      <a href="https://blog.codificandoideias.com/" target="_blank"
+         rel="noopener noreferrer" class="text-light social-icon mx-2 fs-4" aria-label="Blog da Codificando Ideias">
+        <i class="bi bi-newspaper"></i>
+      </a>
     </div>
 
     <small class="footer-copy">
@@ -567,7 +867,10 @@
   </div>
 </div>
 
-
+<a href="#lead" id="cta-floating-especialista" class="floating-cta" aria-label="Falar com especialista sobre desenvolvimento de software">
+<i class="bi bi-chat-dots-fill"></i>
+Falar com especialista
+</a>
 <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -579,7 +882,8 @@
 <script defer src="js/canvas.js"></script>
 <script defer src="js/animations.js"></script>
 <script defer src="js/main.js"></script>
-
+<script defer src="/js/analytics.js"></script>
+<script defer src="/js/observability.js"></script>
 
 <script async defer src="https://www.google.com/recaptcha/api.js?render=6Lety3ksAAAAADEtcTLeuqBxTg44KFusC2y1QO0j"></script>
 </body>
